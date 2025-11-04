@@ -1,0 +1,9 @@
+<h2>Lista de Pilotos</h2>
+@for (piloto of uniqueDrivers(); track piloto.full_name) {
+<div>
+    <h5>{{ piloto.full_name }}</h5>
+    <p>equipo: {{ piloto.team_name || 'No disponible' }}</p>
+    <button (click)="verDatosPiloto(piloto)">Ver datos de piloto</button>
+    <hr>
+</div>
+}
