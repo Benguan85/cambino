@@ -3,7 +3,18 @@
 <div>
     <h5>{{ piloto.full_name }}</h5>
     <p>equipo: {{ piloto.team_name || 'No disponible' }}</p>
-    <button (click)="verDatosPiloto(piloto)">Ver datos de piloto</button>
+    <button (click)="verDatosPiloto(piloto)">
+        {{ selectedDriver() && selectedDriver()?.full_name === piloto.full_name ? 'Ocultar datos' : 'Ver datos de piloto' }}
+    </button>
+    
+    @if (selectedDriver() && selectedDriver()?.full_name === piloto.full_name) {
+    <div class="pilot-details">
+        <p><strong>Piloto:</strong> {{ piloto.full_name }}</p>
+        <p><strong>Equipo:</strong> {{ piloto.team_name }}</p>
+        <p><strong>Número:</strong> {{ piloto.driver_number || 'N/A' }}</p>
+    </div>
+    }
+    
     <hr>
 </div>
 }

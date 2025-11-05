@@ -5,14 +5,14 @@ import { Driver } from '../../model/driverInterface';
 @Component({
   selector: 'app-f1-drivers',
   imports: [],
-  templateUrl: './f1-drivers.html',
-  styleUrl: './f1-drivers.css'
+  templateUrl: './f1-drivers.html'
 })
 export class F1DriversComponent implements OnInit {
 
   private f1DriverService = inject(F1DriverService);
   
   drivers = signal<Driver[]>([]);
+  selectedDriver = signal<Driver | null>(null);
 
   uniqueDrivers = computed(() => {
     const driversArray = this.drivers();
@@ -76,6 +76,12 @@ export class F1DriversComponent implements OnInit {
 
   verDatosPiloto(driver: Driver) {
     console.log("Datos del piloto F1...", driver);
-    alert(`Piloto: ${driver.full_name}\nEquipo: ${driver.team_name}\nNúmero: ${driver.driver_number || 'N/A'}`);
+    // Toggle: si ya está seleccionado el mismo piloto, lo deselecciona
+    if (this.selectedDriver() && this.selectedDriver()?.full_name === driver.full_name) {
+      this.selectedDriver.set(null);
+    } else {
+      // Si no está seleccionado o es otro piloto, lo selecciona
+      this.selectedDriver.set(driver);
+    }
   }
 }
